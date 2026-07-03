@@ -5,9 +5,9 @@ project:
     - file: index.md
     - file: cytosol-characterization/index.md
     - file: pure-optimization/index.md
-    - file: 04_ppk/index.md
-    - file: 10-nucleus_cytosol_v05/index.md
-    - file: 11-Base_Cell/index.md
+    - file: ppk/index.md
+    - file: nucleus-cytosol-v05/index.md
+    - file: base-cell/index.md
     - file: cytosol-lifetime/index.md
 
 site:
