@@ -1,6 +1,1 @@
 version: 1
-project:
-  title: Nucleus Base Cell Testing
-  toc:
-    - file: index.md
-    - file: experiments/20251119-nucleus-liposomes/Untitled.ipynb

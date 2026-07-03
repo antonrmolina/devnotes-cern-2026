@@ -1,7 +1,1 @@
 version: 1
-project:
-  title: First Nucleus Cytosol Testing
-  toc:
-    - file: index.md
-    - file: experiments/20251104-NucleusPURE_deGFP/Analysis.ipynb
-    - file: experiments/20251107-NucleusPURE_deGFP_MgSweep/Analysis.ipynb

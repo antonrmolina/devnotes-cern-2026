@@ -1,9 +1,1 @@
 version: 1
-project:
-  title: Characterizing the Limited Operational Lifetime of Cytosol Reactions
-  toc:
-    - file: index.md
-    - file: experiments/20260506-Cytosol-Lifetime-Test/analysis.ipynb
-    - file: experiments/20260521-Cytosol-Lifetime-Test-R2/analysis.ipynb
-    - file: experiments/20260603-Cytosol-Lifetime-Test3/analysis.ipynb
-    - file: experiments/20260609-Cytosol-Lifetime-Testing4/analysis.ipynb
