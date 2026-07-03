@@ -1,0 +1,12 @@
+version: 1
+project:
+  title: Nucleus DevNotes — CERN-OHL-P 2026
+  toc:
+    - file: index.md
+    - file: cytosol-characterization/index.md
+    - file: pure-optimization/index.md
+
+site:
+  template: book-theme
+  options:
+    folders: true
