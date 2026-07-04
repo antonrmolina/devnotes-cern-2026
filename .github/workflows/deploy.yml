@@ -45,3 +45,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Trigger registry reindex
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.REGISTRY_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/antonrmolina/devnotes-registry/dispatches \
+            -d '{"event_type":"devnote-published"}'
