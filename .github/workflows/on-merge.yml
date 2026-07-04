@@ -1,0 +1,59 @@
+name: On DevNote merged
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  update-toc:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find new DevNote directory
+        id: find-dir
+        run: |
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          DIR="${BRANCH#devnote/}"
+          echo "dir=$DIR" >> $GITHUB_OUTPUT
+          echo "Found directory: $DIR"
+
+      - name: Add to myst.yml toc
+        if: steps.find-dir.outputs.dir != ''
+        run: |
+          DIR="${{ steps.find-dir.outputs.dir }}"
+          if ! grep -q "$DIR/index.md" myst.yml; then
+            python3 -c "
+          import re
+          content = open('myst.yml').read()
+          new_entry = f'    - file: {DIR}/index.md\n'
+          content = re.sub(
+            r'(  toc:\n(?:    - file:.*\n)*)',
+            r'\1' + new_entry,
+            content
+          )
+          open('myst.yml', 'w').write(content)
+          print('Added $DIR to toc')
+          "
+          fi
+
+      - name: Commit toc update
+        run: |
+          git config user.name "nucleus-bot"
+          git config user.email "build@bnext.bio"
+          git add myst.yml
+          git diff --cached --quiet || \
+            git commit -m "toc: add ${{ steps.find-dir.outputs.dir }}"
+          git push
+
+      - name: Trigger registry reindex
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.REGISTRY_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/antonrmolina/devnotes-registry/dispatches \
+            -d '{"event_type":"devnote-published"}'
