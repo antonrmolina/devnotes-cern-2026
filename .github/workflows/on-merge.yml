@@ -30,7 +30,7 @@ jobs:
             python3 -c "
           import re
           content = open('myst.yml').read()
-          new_entry = f'    - file: {DIR}/index.md\n'
+          new_entry = '    - file: $DIR/index.md\n'
           content = re.sub(
             r'(  toc:\n(?:    - file:.*\n)*)',
             r'\1' + new_entry,
